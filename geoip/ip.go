@@ -9,13 +9,13 @@ import (
 //返回值结构体
 //需要满足以上要求
 type Response struct {
-	Country   string
-	Province  string
-	City      string
-	ISP       string
-	Latitude  float64
-	Longitude float64
-	TimeZone  string
+	Country   string  `json:"country"`
+	Province  string  `json:"province"`
+	City      string  `json:"city"`
+	ISP       string  `json:"isp"`
+	Latitude  float64 `json:"latitude"`
+	Longitude float64 `json:"longitude"`
+	TimeZone  string  `json:"time_zone"`
 }
 
 var geoIpDb *geoip2.Reader
@@ -49,4 +49,7 @@ func LoadIpMmdbFile(path string) error {
 	}
 	geoIpDb = mmdb
 	return nil
+}
+func Close() {
+	geoIpDb.Close()
 }
