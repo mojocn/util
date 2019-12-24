@@ -34,7 +34,10 @@ func ParseGeo(ip string) (res *Response, err error) {
 		return nil, err
 	}
 	res.City = record.City.Names["zh-CN"]
-	res.Province = record.Subdivisions[0].Names["zh-CN"]
+	subs := record.Subdivisions
+	if len(subs) == 1 {
+		res.Province = subs[0].Names["zh-CN"]
+	}
 	res.Country = record.Country.Names["zh-CN"]
 	res.Latitude = record.Location.Latitude
 	res.Longitude = record.Location.Longitude
