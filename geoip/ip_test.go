@@ -15,5 +15,5 @@ func TestParseGeo(t *testing.T) {
 		t.Error(err)
 		return
 	}
-	t.Log(res)
+	t.Logf("%#v /n", res)
 }

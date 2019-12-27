@@ -9,13 +9,14 @@ import (
 //返回值结构体
 //需要满足以上要求
 type Response struct {
-	Country   string  `json:"country"`
-	Province  string  `json:"province"`
-	City      string  `json:"city"`
-	ISP       string  `json:"isp"`
-	Latitude  float64 `json:"latitude"`
-	Longitude float64 `json:"longitude"`
-	TimeZone  string  `json:"time_zone"`
+	Country     string  `json:"country"`
+	CountryCode string  `json:"country_code"`
+	Province    string  `json:"province"`
+	City        string  `json:"city"`
+	ISP         string  `json:"isp"`
+	Latitude    float64 `json:"latitude"`
+	Longitude   float64 `json:"longitude"`
+	TimeZone    string  `json:"time_zone"`
 }
 
 var geoIpDb *geoip2.Reader
@@ -39,6 +40,7 @@ func ParseGeo(ip string) (res *Response, err error) {
 		res.Province = subs[0].Names["zh-CN"]
 	}
 	res.Country = record.Country.Names["zh-CN"]
+	res.CountryCode = record.Country.IsoCode
 	res.Latitude = record.Location.Latitude
 	res.Longitude = record.Location.Longitude
 	res.TimeZone = record.Location.TimeZone
